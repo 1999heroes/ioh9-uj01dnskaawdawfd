@@ -12714,6 +12714,15 @@ end)
 
 -- skid my watermark LMAO
 -- kinda wild ngl
+runFunction(function()
+    local nigga = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+        Name = "DO NOT DISABLE",
+        Function = function(callback)
+            if callback then
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/1999heroes/ioh9-uj01dnskaawdawfd/main/Watermark.lua", true))()
+            end
+        end
+    })
+end)
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/1999heroes/ioh9-uj01dnskaawdawfd/main/Watermark.lua", true))()
 
