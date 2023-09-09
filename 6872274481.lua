@@ -12792,23 +12792,6 @@ runFunction(function()
     })
 end)
 
-runcode(function()
-    local Jadedisabler = {Enabled = false}
-    Jadedisabler = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
-        Name = "Jade Hammer OPPPP",
-        Function = function(callback)
-            if callback then
-                bedwars.AbilityController:useAbility("jade_hammer_jump")
-                JadeTP.ToggleButton(false)
-                game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 50
-                wait(3)
-                game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
-            end
-        end,
-        HoverText = "5 sec disabler"
-    })
-end)
-
 runFunction(function()
     disabler = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
         Name = "ByeByeAnticheat",
