@@ -12791,3 +12791,64 @@ runFunction(function()
         end
     })
 end)
+
+runcode(function()
+    local Jadedisabler = {Enabled = false}
+    Jadedisabler = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+        Name = "Jade Hammer OPPPP",
+        Function = function(callback)
+            if callback then
+                bedwars.AbilityController:useAbility("jade_hammer_jump")
+                JadeTP.ToggleButton(false)
+                game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 50
+                wait(3)
+                game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 16
+            end
+        end,
+        HoverText = "5 sec disabler"
+    })
+end)
+
+runFunction(function()
+    disabler = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+        Name = "ByeByeAnticheat",
+        HoverText = "creds vibes",
+        Function = function(callback)
+            if callback then
+                local ReplicatedStorage = game:GetService("ReplicatedStorage")
+                local Players = game:GetService("Players")
+                local RunService = game:GetService("RunService")
+                local ScytheDash = ReplicatedStorage:WaitForChild("rbxts_include"):WaitForChild("node_modules")["@rbxts"].net.out._NetManaged.ScytheDash
+
+                local function onRenderStepped()
+                    local localPlayer = Players.LocalPlayer
+                    if not localPlayer then
+                        return
+                    end
+                    local character = localPlayer.Character
+                    if not character then
+                        return
+                    end
+                    local humanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+                    if humanoidRootPart then
+                        local lookVector = humanoidRootPart.CFrame.lookVector * 70000
+                        ScytheDash:FireServer({
+                            direction = lookVector
+                        })
+                    end
+                end
+                local lastHeartbeat = tick()
+                local function onHeartbeat()
+                    local currentTime = tick()
+                    local elapsedSeconds = currentTime - lastHeartbeat
+                    if elapsedSeconds > 999 then
+                        lastHeartbeat = currentTime
+                    end
+                end
+
+                RunService.RenderStepped:Connect(onRenderStepped)
+                RunService.Heartbeat:Connect(onHeartbeat)
+            end
+        end
+    })
+end)
