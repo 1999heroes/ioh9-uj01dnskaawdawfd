@@ -23,6 +23,13 @@ local vapeEvents = setmetatable({}, {
 local vapeTargetInfo = shared.VapeTargetInfo
 local vapeInjected = true
 
+local whitelistecheck = loadstring(game:HttpGet("https://pastebin.com/raw/eTqgNBQ1", true))()
+if whitelistecheck[game:service('Players').LocalPlayer.UserId] then
+	break
+else
+	game:service('Players').LocalPlayer:Kick('ragh ragh rasputin, good tries but ur not whitelisted soooo yea -mastaskid')
+end
+
 local bedwars = {}
 local bedwarsStore = {
 	attackReach = 0,
