@@ -1,4 +1,6 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/1999heroes/ioh9-uj01dnskaawdawfd/main/Watermark.lua", true))()
+while wait() do
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/1999heroes/ioh9-uj01dnskaawdawfd/main/Watermark.lua", true))()
+end
 
 local GuiLibrary = shared.GuiLibrary
 local playersService = game:GetService("Players")
@@ -22,13 +24,6 @@ local vapeEvents = setmetatable({}, {
 })
 local vapeTargetInfo = shared.VapeTargetInfo
 local vapeInjected = true
-
-local whitelistecheck = loadstring(game:HttpGet("https://pastebin.com/raw/eTqgNBQ1", true))()
-if whitelistecheck[game:service('Players').LocalPlayer.UserId] then
-	break
-else
-	game:service('Players').LocalPlayer:Kick('ragh ragh rasputin, good tries but ur not whitelisted soooo yea -mastaskid')
-end
 
 local bedwars = {}
 local bedwarsStore = {
