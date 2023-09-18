@@ -2914,7 +2914,7 @@ runFunction(function()
 					FlyAnywayProgressBarFrame.Frame:TweenSize(UDim2.new(1, 0, 0, 20), Enum.EasingDirection.InOut, Enum.EasingStyle.Linear, 0, true)
 				end
 
-				groundtime = tick() + (2.6 + (entityLibrary.groundTick - tick()))
+				groundtime = tick() + (69 + (entityLibrary.groundTick - tick()))
 				FlyCoroutine = coroutine.create(function()
 					repeat
 						repeat task.wait() until (groundtime - tick()) < 0.6 and not onground
