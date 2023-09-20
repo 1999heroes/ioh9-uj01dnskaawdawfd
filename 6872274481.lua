@@ -12726,3 +12726,237 @@ runFunction(function()
         end
     })
 end)
+
+local function Pay2Code(func) func() end
+
+getgenv().AutoSexName = "AutoSex" -- module's name, change it if you want to
+getgenv().AutoSexHover = "Automatically teleports behind your opponent" -- module's description, change it if you want to
+getgenv().AutoSexArray = "Teleport" -- module's arraylist mode, change it if you want to
+
+getgenv().AutoSexEnabled = true -- keep the module enabled, basically it let's you use it
+getgenv().AutoSexDefault = false -- makes the module default (auto-enabled), like AutoLeave for example
+
+local AutoSexTable = {
+	Visual = {
+		Name = getgenv().AutoSexName,
+		Description = getgenv().AutoSexHover,
+		Array = getgenv().AutoSexArray
+	},
+	Info = {
+		Enabled = getgenv().AutoSexEnabled,
+		Default = getgenv().AutoSexDefault
+	}
+}
+
+Pay2Code(function()
+	local AutoSex = {Enabled = false}
+	local AutoSexMode = {Value = "Teleport"}
+	local AutoSexRange = {Value = 15}
+	local AutoSexBehind = {Value = 5}
+	local AutoSexSpeed = {Value = 3}
+	local AutoSexDelay = {Value = 0}
+	local AutoSexDuration = {Value = 3}
+	local AutoSexNotify = {Enabled = true}
+	local AutoSexNotify1 = {Enabled = false}
+	local AutoSexNotify2 = {Enabled = false}
+	local AutoSexNotify3 = {Enabled = false}
+	local AutoSexNotify4 = {Enabled = false}
+	local AutoSexNotify5 = {Enabled = true}
+	local AutoSexSettings = {
+		Messages = {
+			Title = "AutoSex",
+			Enable = "Enable in settings to use",
+			Back = "Teleported behind your opponent",
+			Close = "Teleported close to your opponent",
+			Back1 = "Tweened behind your opponent",
+			Close1 = "Tweened close to your opponent"
+		},
+		Sliders = {
+			Range = AutoSexRange.Value,
+			Behind = AutoSexBehind.Value,
+			Speed = AutoSexSpeed.Value/10,
+			Delay = AutoSexDelay.Value/10,
+			Duration = AutoSexDuration.Value
+		}
+	}
+	local function DisableAutoSex()
+		AutoSex.ToggleButton(false)
+		return
+	end
+	local function ClosePlayer()
+		local ClosePLR = nil
+		local CloseDist = AutoSexSettings.Sliders.Range
+		for _,AttackPlr in pairs(game:GetService"Players":GetPlayers()) do
+			if AttackPlr ~= lplr and AttackPlr.Team ~= lplr.Team then
+				if AttackPlr.Character then
+					if AttackPlr.Character:FindFirstChild"HumanoidRootPart" then
+						local Distance = (lplr.Character:FindFirstChild"HumanoidRootPart".Position - AttackPlr.Character:FindFirstChild"HumanoidRootPart".Position).Magnitude
+						if Distance < CloseDist then
+							ClosePLR = AttackPlr
+							CloseDist = Distance
+						end
+					end
+				end
+			end
+		end
+		return ClosePLR
+	end
+	local function SexPlayer(player)
+		if player then
+			if player.Character then
+				if player.Character:FindFirstChild"HumanoidRootPart" then
+					if not AutoSex.Enabled then return end
+					local TPPos = player.Character:FindFirstChild"HumanoidRootPart".Position + (player.Character:FindFirstChild"HumanoidRootPart".CFrame.LookVector*Vector3.new(0,0,-AutoSexSettings.Sliders.Behind))
+					local TPPos2 = player.Character:FindFirstChild"HumanoidRootPart".Position
+					if AutoSexMode.Value == "Teleport" then
+						lplr.Character:FindFirstChild"HumanoidRootPart".CFrame = CFrame.new(TPPos)
+						if AutoSexNotify.Enabled and AutoSexNotify1.Enabled then
+							warningNotification(AutoSexSettings.Messages.Title,AutoSexSettings.Messages.Back,AutoSexSettings.Sliders.Duration)
+						end
+						lplr.Character:FindFirstChild"HumanoidRootPart".CFrame = CFrame.new(TPPos2)
+						if AutoSexNotify.Enabled and AutoSexNotify2.Enabled then
+							warningNotification(AutoSexSettings.Messages.Title,AutoSexSettings.Messages.Close,AutoSexSettings.Sliders.Duration)
+						end
+					elseif AutoSexMode.Value == "Tween" then
+						game:GetService"TweenService":Create(
+							lplr.Character:FindFirstChild"HumanoidRootPart",
+							TweenInfo.new(
+								AutoSexSettings.Sliders.Speed,
+								Enum.EasingStyle.Linear,
+								Enum.EasingDirection.Out,
+								0,false,0
+							),
+							{CFrame = CFrame.new(TPPos)}
+						):Play()
+						if AutoSexNotify.Enabled and AutoSexNotify3.Enabled then
+							warningNotification(AutoSexSettings.Messages.Title,AutoSexSettings.Messages.Back1,AutoSexSettings.Sliders.Duration)
+						end
+						game:GetService"TweenService":Create(
+							lplr.Character:FindFirstChild"HumanoidRootPart",
+							TweenInfo.new(
+								AutoSexSettings.Sliders.Speed,
+								Enum.EasingStyle.Linear,
+								Enum.EasingDirection.Out,
+								0,false,0
+							),
+							{CFrame = CFrame.new(TPPos2)}
+						):Play()
+						if AutoSexNotify.Enabled and AutoSexNotify4.Enabled then
+							warningNotification(AutoSexSettings.Messages.Title,AutoSexSettings.Messages.Close1,AutoSexSettings.Sliders.Duration)
+						end
+					end
+				end
+			end
+		end
+	end
+	local ClosestPlayer
+	AutoSex = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+		Name = AutoSexTable.Visual.Name,
+        HoverText = AutoSexTable.Visual.Description,
+		Function = function(callback)
+			if callback and AutoSexTable.Info.Enabled then
+				task.spawn(function()
+					repeat task.wait(AutoSexSettings.Sliders.Delay)
+						ClosestPlayer = ClosePlayer()
+						SexPlayer(ClosestPlayer)
+					until not AutoSex.Enabled
+				end)
+			elseif callback and not AutoSexTable.Info.Enabled then
+				if AutoSexNotify.Enabled and AutoSexNotify5.Enabled then
+					warningNotification(AutoSexSettings.Messages.Title,AutoSexSettings.Messages.Enable,AutoSexSettings.Sliders.Duration)
+				end
+				DisableAutoSex()
+			end
+		end,
+        Default = AutoSexTable.Info.Default,
+        ExtraText = function()
+            return AutoSexTable.Visual.Array
+        end
+	})
+	AutoSexMode = AutoSex.CreateDropdown({
+		Name = "Mode",
+		List = {
+			"Teleport",
+			"Tween"
+		},
+		HoverText = "Mode to fuck the opponent",
+		Value = "Teleport",
+		Function = function() end
+	})
+	AutoSexRange = AutoSex.CreateSlider({
+		Name = "Attack Range",
+		Min = 1,
+		Max = 30,
+		HoverText = "Range to fuck your opponent",
+		Function = function() end,
+		Default = 15
+	})
+	AutoSexBehind = AutoSex.CreateSlider({
+		Name = "Behind",
+		Min = 0,
+		Max = 15,
+		HoverText = "Behind opponent TP amount",
+		Function = function() end,
+		Default = 5
+	})
+	AutoSexSpeed = AutoSex.CreateSlider({
+		Name = "Speed",
+		Min = 1,
+		Max = 10,
+		HoverText = "Tween speed (duration) to fuck your opponent",
+		Function = function() end,
+		Default = 3
+	})
+	AutoSexDelay = AutoSex.CreateSlider({
+		Name = "Delay",
+		Min = 0,
+		Max = 50,
+		HoverText = "Delay to fuck your opponent",
+		Function = function() end,
+		Default = 0
+	})
+	AutoSexDuration = AutoSex.CreateSlider({
+		Name = "Duration",
+		Min = 1,
+		Max = 10,
+		HoverText = "Duration of the notification",
+		Function = function() end,
+		Default = 3
+	})
+	AutoSexNotify = AutoSex.CreateToggle({
+		Name = "Notification",
+		Default = true,
+		HoverText = "Notifies you when certain actions happen",
+		Function = function() end
+	})
+	AutoSexNotify1 = AutoSex.CreateToggle({
+		Name = "Notify Teleport Back",
+		Default = false,
+		HoverText = "Notifies you when you teleported\nbehind your opponent",
+		Function = function() end
+	})
+	AutoSexNotify2 = AutoSex.CreateToggle({
+		Name = "Notify Teleport Close",
+		Default = false,
+		HoverText = "Notifies you when you teleported\nclose to your opponent",
+		Function = function() end
+	})
+	AutoSexNotify3 = AutoSex.CreateToggle({
+		Name = "Notify Tween Back",
+		Default = false,
+		HoverText = "Notifies you when you tweened\nbehind your opponent",
+		Function = function() end
+	})
+	AutoSexNotify4 = AutoSex.CreateToggle({
+		Name = "Notify Tween Close",
+		Default = false,
+		HoverText = "Notifies you when you tweened\nclose to your opponent",
+		Function = function() end
+	})
+	AutoSexNotify5 = AutoSex.CreateToggle({
+		Name = "Notify Settings",
+		Default = true,
+		HoverText = "Notifies you that you have to enable\nAutoSex in settings",
+		Function = function() end
+	})
+end)
