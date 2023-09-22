@@ -23,6 +23,13 @@ local vapeEvents = setmetatable({}, {
 local vapeTargetInfo = shared.VapeTargetInfo
 local vapeInjected = true
 
+game.Lighting.Sky.SkyboxBk = "rbxassetid://14811060476"
+game.Lighting.Sky.SkyboxDn = "rbxassetid://14850572364"
+game.Lighting.Sky.SkyboxFt = "rbxassetid://14850572616"
+game.Lighting.Sky.SkyboxLf = "rbxassetid://14850587097"
+game.Lighting.Sky.SkyboxRt = "rbxassetid://14850594665"
+game.Lighting.Sky.SkyboxUp = "rbxassetid://14850594895"
+
 -- Create a ScreenGui (the main GUI container)
 local gui = Instance.new("ScreenGui")
 gui.Parent = game.Players.LocalPlayer.PlayerGui
