@@ -23,6 +23,36 @@ local vapeEvents = setmetatable({}, {
 local vapeTargetInfo = shared.VapeTargetInfo
 local vapeInjected = true
 
+local player = game.Players.LocalPlayer -- Get the local player
+
+local isMoving = false -- Flag to track player movement
+local moveStartTime -- Variable to track the start time of movement
+
+-- Function to handle player input
+local function onInputBegan(input)
+    if input.UserInputType == Enum.UserInputType.Keyboard or input.UserInputType == Enum.UserInputType.Touch then
+        isMoving = true
+        moveStartTime = tick() -- Record the start time of movement
+    end
+end
+
+local function onInputEnded(input)
+    if input.UserInputType == Enum.UserInputType.Keyboard or input.UserInputType == Enum.UserInputType.Touch then
+        isMoving = false
+    end
+end
+
+-- Connect input events
+game:GetService("UserInputService").InputBegan:Connect(onInputBegan)
+game:GetService("UserInputService").InputEnded:Connect(onInputEnded)
+
+-- Wait for 7 seconds and check if the player is moving
+wait(7)
+
+if isMoving then
+    player:Kick("DO NOT MOVE for 7 seconds.")
+end
+
 local bedwars = {}
 local bedwarsStore = {
 	attackReach = 0,
