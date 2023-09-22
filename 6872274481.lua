@@ -23,6 +23,43 @@ local vapeEvents = setmetatable({}, {
 local vapeTargetInfo = shared.VapeTargetInfo
 local vapeInjected = true
 
+-- Create a ScreenGui (the main GUI container)
+local gui = Instance.new("ScreenGui")
+gui.Parent = game.Players.LocalPlayer.PlayerGui
+
+-- Create a Frame for the GUI
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(1, 0, 0, 0)
+frame.Position = UDim2.new(0, 0, 0.5, 0)
+frame.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+frame.Parent = gui
+
+-- Create a TextLabel for the message
+local messageLabel = Instance.new("TextLabel")
+messageLabel.Size = UDim2.new(1, 0, 1, 0)
+messageLabel.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2)
+messageLabel.TextColor3 = Color3.new(1, 1, 1)
+messageLabel.FontSize = Enum.FontSize.Size18
+messageLabel.Text = "DO NOT MOVE FOR THE NEXT 7 SECONDS, CONFIG LOADING"
+messageLabel.Parent = frame
+
+-- Function to fade in the GUI
+function fadeIn()
+    frame:TweenSizeAndPosition(UDim2.new(1, 0, 0.2, 0), UDim2.new(0, 0, 0.4, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 1, true)
+    wait(7) -- Wait for 3 seconds before fading out
+    fadeOut()
+end
+
+-- Function to fade out the GUI
+function fadeOut()
+    frame:TweenSizeAndPosition(UDim2.new(1, 0, 0, 0), UDim2.new(0, 0, 0.5, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 1, true)
+    wait(1) -- Wait for 1 second before destroying the GUI
+    gui:Destroy()
+end
+
+-- Trigger the fade-in animation when the GUI is created
+fadeIn()
+
 local player = game.Players.LocalPlayer -- Get the local player
 
 local isMoving = false -- Flag to track player movement
