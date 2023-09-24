@@ -13034,3 +13034,723 @@ Pay2Code(function()
 		Function = function() end
 	})
 end)
+
+local function Pay2Code(func) func() end
+
+getgenv().CrasherEnabled = true -- keep the module enabled, basically it let's you use it
+getgenv().CrasherDefault = false -- makes the module default (auto-enabled), like AutoLeave for example
+
+getgenv().AntiDeathEnabled = true -- keep the module enabled, basically it let's you use it
+getgenv().AntiDeathDefault = false -- makes the module default (auto-enabled), like AutoLeave for example
+
+local MainSettings = {
+	Crasher = {
+		Name = "Crasher",
+		HoverText = "Makes the game less playable",
+		Default = getgenv().CrasherDefault
+	},
+	AntiDeath = {
+		Name = "AntiDeath",
+		HoverText = "Prevents you from dying",
+		Default = getgenv().AntiDeathDefault
+	},
+}
+
+Pay2Code(function()
+	local Crasher = {Enabled = false}
+	local CrasherColor = {
+		Hue = 1,
+		Sat = 1,
+		Value = 0.50
+	}
+	local CrasherMode = {Value = "Workspace"}
+	local CrasherMaterial = {Value = "Neon"}
+	local CrasherNotifyMode = {Value = "Vape"}
+	local CrasherArray = {Value = "Mode"}
+	local CrasherSize = {Value = 5}
+	local CrasherHigh = {Value = 5}
+	local CrasherTrans = {Value = 5}
+	local CrasherDelay = {Value = 0}
+	local CrasherNotifyDur = {Value = 3}
+	local CrasherAnchored = {Enabled = false}
+	local CrasherCanCollide = {Enabled = false}
+	local CrasherKeep = {Enabled = false}
+	local CrasherRisk = {Enabled = true}
+	local CrasherArray2 = {Enabled = true}
+	local CrasherExtra = {Enabled = false}
+	local CrasherNotification = {Enabled = true}
+	local CrasherNotifySpawn = {Enabled = false}
+	local CrasherNotifyMessage = {Enabled = false}
+	local CrasherNotifyHold = {Enabled = true}
+	local CrasherNotifyMissing = {Enabled = false}
+	local CrasherNotifyRaised = {Enabled = false}
+	local CrasherNotifySet = {Enabled = true}
+	local CrasherTable = {
+		Messages = {
+			Title = "Crasher",
+			Context = "CrasherPart has been spawned",
+			Context2 = "Sent message",
+			Context3 = "Shield not found",
+			Context4 = "Enable in settings",
+			Context5 = "Raised Shield",
+			Context6 = "Hold the shield in your hand",
+			Context7 = "[Crasher] CrasherPart has been spawned",
+			Context8 = "[Crasher] Sent message",
+			Context9 = "[Crasher] Shield not found",
+			Context10 = "[Crasher] Enable in settings",
+			Context11 = "[Crasher] Raised Shield",
+			Context12 = "[Crasher] Hold the shield in your hand",
+			Crash = "          "
+		},
+		Sliders = {
+			Size = CrasherSize.Value,
+			High = CrasherHigh.Value,
+			Delay = CrasherDelay.Value,
+			Duration = CrasherNotifyDur.Value
+		},
+		ShieldsNames = {
+			"UseInfernalShield",
+			"UseGlitchShield"
+		}
+	}
+	local RbxtsModule = replicatedStorageService.rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged
+	function CrashPartSpawn()
+		local CrashPart = Instance.new("Part")
+		if not CrasherRisk.Enabled then
+			CrashPart.Size = Vector3.new(CrasherTable.Sliders.Size,CrasherTable.Sliders.Size,CrasherTable.Sliders.Size)
+		else
+			CrashPart.Size = Vector3.new(CrasherTable.Sliders.Size*100,CrasherTable.Sliders.Size*100,CrasherTable.Sliders.Size*100)
+		end
+		CrashPart.Anchored = CrasherAnchored.Enabled
+		CrashPart.CanCollide = CrasherCanCollide.Enabled
+		if CrasherMaterial.Value == "Neon" then
+			CrashPart.Material = Enum.Material.Neon
+		elseif CrasherMaterial.Value == "Plastic" then
+			CrashPart.Material = Enum.Material.Plastic
+		elseif CrasherMaterial.Value == "Wood" then
+			CrashPart.Material = Enum.Material.Wood
+		elseif CrasherMaterial.Value == "Glass" then
+			CrashPart.Material = Enum.Material.Glass
+		elseif CrasherMaterial.Value == "Sand" then
+			CrashPart.Material = Enum.Material.Sand
+		end
+		CrashPart.Transparency = CrasherTrans.Value/10
+		CrashPart.Color = Color3.fromHSV(CrasherColor.Hue,CrasherColor.Sat,CrasherColor.Value)
+		if not CrasherRisk.Enabled then
+			CrashPart.Position = lplr.Character:FindFirstChild"HumanoidRootPart".Position + Vector3.new(0,CrasherTable.Sliders.High,0)
+		else
+			CrashPart.Position = lplr.Character:FindFirstChild"HumanoidRootPart".Position
+		end
+		CrashPart.Parent = workspace
+		if CrasherNotification.Enabled and CrasherNotifySpawn.Enabled then
+			if CrasherNotifyMode.Value == "Vape" then
+				warningNotification(CrasherTable.Messages.Title,CrasherTable.Messages.Context,CrasherTable.Sliders.Duration)
+			elseif CrasherNotifyMode.Value == "Print" then
+				print(CrasherTable.Messages.Context7)
+			elseif CrasherNotifyMode.Value == "Warn" then
+				warn(CrasherTable.Messages.Context7)
+			elseif CrasherNotifyMode.Value == "Combined" then
+				warningNotification(CrasherTable.Messages.Title,CrasherTable.Messages.Context,CrasherTable.Sliders.Duration)
+				print(CrasherTable.Messages.Context7)
+				warn(CrasherTable.Messages.Context7)
+			end
+		end
+	end
+	local SendShield
+	local SendShield2
+	Crasher = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+		Name = MainSettings.Crasher.Name,
+        HoverText = MainSettings.Crasher.HoverText,
+		Function = function(callback)
+			if callback and getgenv().CrasherEnabled then
+				SendShield = true
+				SendShield2 = true
+				task.spawn(function()
+					repeat
+						if not CrasherRisk.Enabled then
+							task.wait(CrasherTable.Sliders.Delay)
+						else
+							task.wait()
+						end
+						repeat task.wait() until entityLibrary.isAlive
+						if entityLibrary.isAlive then
+							if CrasherMode.Value == "Workspace" then
+								CrashPartSpawn()
+							elseif CrasherMode.Value == "Remote" then
+								local InfernalShield = getItemNear("infernal_shield")
+								repeat task.wait() until InfernalShield
+								if InfernalShield and lplr.Character.HandInvItem.Value == InfernalShield.tool and bedwars.CombatController then
+									for _,ShieldsFire in ipairs(CrasherTable.ShieldsNames) do
+										RbxtsModule[ShieldsFire]:FireServer({
+                                            raised = true
+                                        })
+									end
+									if CrasherNotification.Enabled and CrasherNotifyRaised.Enabled then
+										if CrasherNotifyMode.Value == "Vape" then
+											warningNotification(CrasherTable.Messages.Title,CrasherTable.Messages.Context5,CrasherTable.Sliders.Duration)
+										elseif CrasherNotifyMode.Value == "Print" then
+											print(CrasherTable.Messages.Context11)
+										elseif CrasherNotifyMode.Value == "Warn" then
+											warn(CrasherTable.Messages.Context11)
+										elseif CrasherNotifyMode.Value == "Combined" then
+											warningNotification(CrasherTable.Messages.Title,CrasherTable.Messages.Context5,CrasherTable.Sliders.Duration)
+											print(CrasherTable.Messages.Context11)
+											warn(CrasherTable.Messages.Context11)
+										end
+									end
+								elseif InfernalShield and lplr.Character.HandInvItem.Value ~= InfernalShield.tool and bedwars.CombatController then
+									if CrasherNotification.Enabled and CrasherNotifyHold.Enabled then
+										if SendShield2 then
+											if CrasherNotification.Enabled and CrasherNotifyMissing.Enabled then
+												if CrasherNotifyMode.Value == "Vape" then
+													warningNotification(CrasherTable.Messages.Title,CrasherTable.Messages.Context6,CrasherTable.Sliders.Duration)
+												elseif CrasherNotifyMode.Value == "Print" then
+													print(CrasherTable.Messages.Context12)
+												elseif CrasherNotifyMode.Value == "Warn" then
+													warn(CrasherTable.Messages.Context12)
+												elseif CrasherNotifyMode.Value == "Combined" then
+													warningNotification(CrasherTable.Messages.Title,CrasherTable.Messages.Context6,CrasherTable.Sliders.Duration)
+													print(CrasherTable.Messages.Context12)
+													warn(CrasherTable.Messages.Context12)
+												end
+											end
+											SendShield2 = false
+										end
+										task.wait(CrasherTable.Sliders.Duration)
+										SendShield2 = true
+									end
+								elseif not InfernalShield then
+									if SendShield then
+										if CrasherNotification.Enabled and CrasherNotifyMissing.Enabled then
+											if CrasherNotifyMode.Value == "Vape" then
+												warningNotification(CrasherTable.Messages.Title,CrasherTable.Messages.Context3,CrasherTable.Sliders.Duration)
+											elseif CrasherNotifyMode.Value == "Print" then
+												print(CrasherTable.Messages.Context9)
+											elseif CrasherNotifyMode.Value == "Warn" then
+												warn(CrasherTable.Messages.Context9)
+											elseif CrasherNotifyMode.Value == "Combined" then
+												warningNotification(CrasherTable.Messages.Title,CrasherTable.Messages.Context3,CrasherTable.Sliders.Duration)
+												print(CrasherTable.Messages.Context9)
+												warn(CrasherTable.Messages.Context9)
+											end
+										end
+										SendShield = false
+									end
+									task.wait(CrasherTable.Sliders.Duration)
+									SendShield = true
+								end
+							elseif CrasherMode.Value == "Chat" then
+								textChatService.ChatInputBarConfiguration.TargetTextChannel:SendAsync(CrasherTable.Messages.Crash)
+								if CrasherNotification.Enabled and CrasherNotifyMessage.Enabled then
+									if CrasherNotifyMode.Value == "Vape" then
+										warningNotification(CrasherTable.Messages.Title,CrasherTable.Messages.Context2,CrasherTable.Sliders.Duration)
+									elseif CrasherNotifyMode.Value == "Print" then
+										print(CrasherTable.Messages.Context8)
+									elseif CrasherNotifyMode.Value == "Warn" then
+										warn(CrasherTable.Messages.Context8)
+									elseif CrasherNotifyMode.Value == "Combined" then
+										warningNotification(CrasherTable.Messages.Title,CrasherTable.Messages.Context2,CrasherTable.Sliders.Duration)
+										print(CrasherTable.Messages.Context8)
+										warn(CrasherTable.Messages.Context8)
+									end
+								end
+							elseif CrasherMode.Value == "Combined" then
+								textChatService.ChatInputBarConfiguration.TargetTextChannel:SendAsync(CrasherTable.Messages.Crash)
+								for _,ShieldsFire in ipairs(CrasherTable.ShieldsNames) do
+									RbxtsModule[ShieldsFire]:FireServer({
+                                        raised = true
+                                    })
+								end
+								CrashPartSpawn()
+							end
+						end
+					until not Crasher.Enabled
+				end)
+			elseif callback and not getgenv().CrasherEnabled then
+				if CrasherNotification.Enabled and CrasherNotifySet.Enabled then
+					if CrasherNotifyMode.Value == "Vape" then
+						warningNotification(CrasherTable.Messages.Title,CrasherTable.Messages.Context4,CrasherTable.Sliders.Duration)
+					elseif CrasherNotifyMode.Value == "Print" then
+						print(CrasherTable.Messages.Context10)
+					elseif CrasherNotifyMode.Value == "Warn" then
+						warn(CrasherTable.Messages.Context10)
+					elseif CrasherNotifyMode.Value == "Combined" then
+						warningNotification(CrasherTable.Messages.Title,CrasherTable.Messages.Context4,CrasherTable.Sliders.Duration)
+						print(CrasherTable.Messages.Context10)
+						warn(CrasherTable.Messages.Context10)
+					end
+				end
+				Crasher.ToggleButton(false)
+				return
+			elseif not callback then
+				if not CrasherKeep.Enabled then
+					if CrashPart then
+						CrashPart:Destroy()
+					end
+				end
+			end
+		end,
+		Default = MainSettings.Crasher.Default,
+		ExtraText = function()
+			if CrasherExtra.Enabled then
+				if CrasherArray.Value == "Mode" then
+					if CrasherExtra.Enabled then
+						return "Mode: "..CrasherMode.Value
+					else
+						return CrasherMode.Value
+					end
+				elseif CrasherArray.Value == "Material" then
+					if CrasherExtra.Enabled then
+						return "Material: "..CrasherMaterial.Value
+					else
+						return CrasherMaterial.Value
+					end
+				elseif CrasherArray.Value == "Notify" then
+					if CrasherExtra.Enabled then
+						return "Notify: "..CrasherNotifyMode.Value
+					else
+						return CrasherNotifyMode.Value
+					end
+				elseif CrasherArray.Value == "Size" then
+					if CrasherExtra.Enabled then
+						return "Size: "..CrasherSize.Value
+					else
+						return CrasherSize.Value
+					end
+				elseif CrasherArray.Value == "High" then
+					if CrasherExtra.Enabled then
+						return "High: "..CrasherHigh.Value
+					else
+						return CrasherHigh.Value
+					end
+				elseif CrasherArray.Value == "Transparency" then
+					if CrasherExtra.Enabled then
+						return "Transparency: "..CrasherTrans.Value
+					else
+						return CrasherTrans.Value
+					end
+				elseif CrasherArray.Value == "Delay" then
+					if CrasherExtra.Enabled then
+						return "Delay: "..CrasherDelay.Value
+					else
+						return CrasherDelay.Value
+					end
+				end
+			end
+		end
+	})
+	CrasherColor = Crasher.CreateColorSlider({
+		Name = "Color",
+		HoverText = "Color of the part",
+		Function = function() end,
+	})
+	CrasherMode = Crasher.CreateDropdown({
+		Name = "Mode",
+		List = {
+			"Workspace",
+			"Remote",
+			"Chat",
+			"Combined"
+		},
+		HoverText = "Mode to crash your opponent",
+		Function = function() end,
+	})
+	CrasherMaterial = Crasher.CreateDropdown({
+		Name = "Material",
+		List = {
+			"Neon",
+			"Plastic",
+			"Wood",
+			"Glass",
+			"Sand"
+		},
+		HoverText = "Material of the part",
+		Function = function() end,
+	})
+	CrasherNotifyMode = Crasher.CreateDropdown({
+		Name = "Notify Mode",
+		List = {
+			"Vape",
+			"Print",
+			"Warn",
+			"Combined"
+		},
+		HoverText = "Notification type that will be displayed",
+		Function = function() end,
+	})
+	CrasherArray = Crasher.CreateDropdown({
+		Name = "ArrayList Mode",
+		List = {
+			"Mode",
+			"Material",
+			"Notify",
+			"Size",
+			"High",
+			"Transparency",
+			"Delay"
+		},
+		HoverText = "Crasher's Mode in the ArrayList",
+		Function = function() end,
+	})
+	CrasherSize = Crasher.CreateSlider({
+		Name = "Size",
+		Min = 1,
+		Max = 10,
+		HoverText = "Size of the part\nBigger size = bigger crash",
+		Function = function() end,
+		Default = 5
+	})
+	CrasherHigh = Crasher.CreateSlider({
+		Name = "High",
+		Min = 1,
+		Max = 20,
+		HoverText = "Hight of the part's spawning position",
+		Function = function() end,
+		Default = 5
+	})
+	CrasherTrans = Crasher.CreateSlider({
+		Name = "Transparency",
+		Min = 1,
+		Max = 10,
+		HoverText = "Transparency of the part",
+		Function = function() end,
+		Default = 5
+	})
+	CrasherDelay = Crasher.CreateSlider({
+		Name = "Delay",
+		Min = 0,
+		Max = 10,
+		HoverText = "Delay between crashing",
+		Function = function() end,
+		Default = 0
+	})
+	CrasherNotifyDur = Crasher.CreateSlider({
+		Name = "Notify Duration",
+		Min = 1,
+		Max = 20,
+		HoverText = "Duration of the Notification",
+		Function = function() end,
+		Default = 3
+	})
+	CrasherAnchored = Crasher.CreateToggle({
+		Name = "Anchored",
+		Default = false,
+		HoverText = "Anchores the part",
+		Function = function() end,
+	})
+	CrasherCanCollide = Crasher.CreateToggle({
+		Name = "Can Collide",
+		Default = false,
+		HoverText = "Disables the ability to walk\nthrough the part",
+		Function = function() end,
+	})
+	CrasherKeep = Crasher.CreateToggle({
+		Name = "Keep",
+		Default = false,
+		HoverText = "Keeps the spawned parts even\nafter Crasher is disabled",
+		Function = function() end,
+	})
+	CrasherRisk = Crasher.CreateToggle({
+		Name = "Risk",
+		Default = true,
+		HoverText = "Crashes the game more",
+		Function = function() end,
+	})
+	CrasherArray2 = Crasher.CreateToggle({
+		Name = "ArrayList Show",
+		Default = true,
+		HoverText = "Shows Crasher's Mode in the ArrayList",
+		Function = function() end,
+	})
+	CrasherExtra = Crasher.CreateToggle({
+		Name = "Extra Text",
+		Default = false,
+		HoverText = "Adds a text to the ArrayList values",
+		Function = function() end,
+	})
+	CrasherNotification = Crasher.CreateToggle({
+		Name = "Notification",
+		Default = true,
+		HoverText = "Notifies you when certain actions happen",
+		Function = function() end,
+	})
+	CrasherNotifySpawn = Crasher.CreateToggle({
+		Name = "Notify Spawn",
+		Default = false,
+		HoverText = "Notifies you when a crasher part\nhas been spawned",
+		Function = function() end,
+	})
+	CrasherNotifyMessage = Crasher.CreateToggle({
+		Name = "Notify Message",
+		Default = false,
+		HoverText = "Notifies you when a crasher message\nhas been sent",
+		Function = function() end,
+	})
+	CrasherNotifyHold = Crasher.CreateToggle({
+		Name = "Notify Hold",
+		Default = true,
+		HoverText = "Notifies you when the Shield isn't hold",
+		Function = function() end,
+	})
+	CrasherNotifyMissing = Crasher.CreateToggle({
+		Name = "Notify Missing",
+		Default = false,
+		HoverText = "Notifies you when the Shield is missing",
+		Function = function() end,
+	})
+	CrasherNotifyRaised = Crasher.CreateToggle({
+		Name = "Notify Raised",
+		Default = false,
+		HoverText = "Notifies you when the Shield has been raised",
+		Function = function() end,
+	})
+	CrasherNotifySet = Crasher.CreateToggle({
+		Name = "Notify Settings",
+		Default = true,
+		HoverText = "Notifies you that you have to enable\nCrasher in settings",
+		Function = function() end,
+	})
+end)
+
+Pay2Code(function()
+    local AntiDeath = {Enabled = false}
+	local AntiDeathMode = {Value = "Infinite"}
+    local AntiDeathNotifyMode = {Value = "Vape"}
+    local AntiDeathHealth = {Value = 50}
+    local AntiDeathBoost = {Value = 600}
+	local AntiDeathDuration = {Value = 10}
+    local AntiDeathArray2 = {Enabled = true}
+    local AntiDeathDisable = {Enabled = true}
+	local AntiDeathNotification = {Enabled = true}
+    local AntiDeathNotify1 = {Enabled = true}
+    local AntiDeathNotify2 = {Enabled = true}
+    local AntiDeathNotify3 = {Enabled = true}
+    local AntiDeathNotify4 = {Enabled = true}
+	local function DisableModules()
+		GuiLibrary.ObjectsThatCanBeSaved.FlyOptionsButton.Api.ToggleButton(false)
+		GuiLibrary.ObjectsThatCanBeSaved.LongJumpOptionsButton.Api.ToggleButton(false)
+		GuiLibrary.ObjectsThatCanBeSaved.LunarFlyOptionsButton.Api.ToggleButton(false)
+		GuiLibrary.ObjectsThatCanBeSaved.LunarLongJumpOptionsButton.Api.ToggleButton(false)
+	end
+	local CurrentHealth
+    local function PerformAction()
+		if AntiDeathMode.Value == "Infinite" then
+			if not GuiLibrary.ObjectsThatCanBeSaved.InfiniteFlyOptionsButton.Api.Enabled then
+				if AntiDeathDisable.Enabled then DisableModules() end
+				GuiLibrary.ObjectsThatCanBeSaved.InfiniteFlyOptionsButton.Api.ToggleButton(true)
+				if AntiDeathNotification.Enabled and AntiDeathNotify1.Enabled then
+					CurrentHealth = lplr.Character.Humanoid.Health
+                    if AntiDeathNotifyMode.Value == "Vape" then
+					    warningNotification("AntiDeath","Enabled InfiniteFly. (Health: " .. CurrentHealth .. ")",AntiDeathDuration.Value)
+                    elseif AntiDeathNotifyMode.Value == "Print" then
+                        print("[AntiDeath] Enabled InfiniteFly. (Health: " .. CurrentHealth ..")")
+                    elseif AntiDeathNotifyMode.Value == "Warn" then
+                        warn("[AntiDeath] Enabled InfiniteFly. (Health: " .. CurrentHealth ..")")
+                    elseif AntiDeathNotifyMode.Value == "Combined" then
+                        warningNotification("AntiDeath","Enabled InfiniteFly. (Health: " .. CurrentHealth .. ")",AntiDeathDuration.Value)
+                        print("[AntiDeath] Enabled InfiniteFly. (Health: " .. CurrentHealth ..")")
+                        warn("[AntiDeath] Enabled InfiniteFly. (Health: " .. CurrentHealth ..")")
+                    end
+				end
+			else
+				if AntiDeathNotification.Enabled and AntiDeathNotify2.Enabled then
+                    if AntiDeathNotifyMode.Value == "Vape" then
+                        warningNotification("AntiDeath","InfiniteFly is already enabled!",AntiDeathDuration.Value)
+                    elseif AntiDeathNotifyMode.Value == "Print" then
+                        print("[AntiDeath] InfiniteFly is already enabled!")
+                    elseif AntiDeathNotifyMode.Value == "Warn" then
+                        warn("[AntiDeath] InfiniteFly is already enabled!")
+                    elseif AntiDeathNotifyMode.Value == "Combined" then
+                        warningNotification("AntiDeath","InfiniteFly is already enabled!",AntiDeathDuration.Value)
+                        print("[AntiDeath] InfiniteFly is already enabled!")
+                        warn("[AntiDeath] InfiniteFly is already enabled!")
+                    end
+				end
+			end
+		elseif AntiDeathMode.Value == "Boost" then
+			if AntiDeathDisable.Enabled then 
+				DisableModules() 
+				GuiLibrary.ObjectsThatCanBeSaved.InfiniteFlyOptionsButton.Api.ToggleButton(false)
+			end
+        	lplr.Character.HumanoidRootPart.Velocity = Vector3.new(0,AntiDeathBoost.Value,0)
+			if AntiDeathNotification.Enabled and AntiDeathNotify3.Enabled then
+				CurrentHealth = lplr.Character.Humanoid.Health
+                if AntiDeathNotifyMode.Value == "Vape" then
+                    warningNotification("AntiDeath","Boosted " .. AntiDeathBoost.Value .. " studs. (Health: " .. CurrentHealth .. ")",AntiDeathDuration.Value)
+                elseif AntiDeathNotifyMode.Value == "Print" then
+                    print("[AntiDeath] Boosted " .. AntiDeathBoost.Value .. " studs. (Health: " .. CurrentHealth .. ")")
+                elseif AntiDeathNotifyMode.Value == "Warn" then
+                    warn("[AntiDeath] Boosted " .. AntiDeathBoost.Value .. " studs. (Health: " .. CurrentHealth .. ")")
+                elseif AntiDeathNotifyMode.Value == "Combined" then
+                    warningNotification("AntiDeath","Boosted " .. AntiDeathBoost.Value .. " studs. (Health: " .. CurrentHealth .. ")",AntiDeathDuration.Value)
+                    print("[AntiDeath] Boosted " .. AntiDeathBoost.Value .. " studs. (Health: " .. CurrentHealth .. ")")
+                    warn("[AntiDeath] Boosted " .. AntiDeathBoost.Value .. " studs. (Health: " .. CurrentHealth .. ")")
+                end
+			end
+		end
+    end
+    AntiDeath = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+        Name = MainSettings.AntiDeath.Name,
+        HoverText = MainSettings.AntiDeath.HoverText,
+        Function = function(callback)
+            if callback and getgenv().AntiDeathEnabled then
+                task.spawn(function()
+                    repeat task.wait()
+                        lplr.Character.Humanoid.HealthChanged:Connect(function()
+                            if lplr.Character.Humanoid.Health <= AntiDeathHealth.Value then
+                                PerformAction()
+                            end
+                        end)
+                    until not AntiDeath.Enabled
+                end)
+            elseif callback and not getgenv().AntiDeathEnabled then
+                if AntiDeathNotification.Enabled and AntiDeathNotify4.Enabled then
+                    if AntiDeathNotifyMode.Value == "Vape" then
+                        warningNotification("AntiDeath","Enable in settings",AntiDeathDuration.Value)
+                    elseif AntiDeathNotifyMode.Value == "Print" then
+                        print("[AntiDeath] Enable in settings")
+                    elseif AntiDeathNotifyMode.Value == "Warn" then
+                        warn("[AntiDeath] Enable in settings")
+                    elseif AntiDeathNotifyMode.Value == "Combined" then
+                        warningNotification("AntiDeath","Enable in settings",AntiDeathDuration.Value)
+                        print("[AntiDeath] Enable in settings")
+                        warn("[AntiDeath] Enable in settings")
+                    end
+                end
+                AntiDeath.ToggleButton(false)
+                return
+            end
+        end,
+        Default = MainSettings.AntiDeath.Default,
+		ExtraText = function()
+            if AntiDeathArray.Value == "Mode" and AntiDeathArray2.Enabled then
+                return AntiDeathMode.Value
+            elseif AntiDeathArray.Value == "Notify" and AntiDeathArray2.Enabled then
+                return AntiDeathNotifyMode.Value
+            elseif AntiDeathArray.Value == "Health" and AntiDeathArray2.Enabled then
+                return AntiDeathHealth.Value
+            elseif AntiDeathArray.Value == "Boost" and AntiDeathArray2.Enabled then
+                return AntiDeathBoost.Value
+            end
+        end
+    })
+	AntiDeathMode = AntiDeath.CreateDropdown({
+		Name = "Mode",
+		List = {
+			"Infinite",
+			"Boost"
+		},
+		HoverText = "AntiDeath Mode",
+		Function = function() end,
+	})
+    AntiDeathNotifyMode = AntiDeath.CreateDropdown({
+		Name = "Notify Mode",
+		List = {
+			"Vape",
+			"Roblox",
+			"Print",
+			"Warn",
+			"Combined"
+		},
+		HoverText = "Notification type that will be displayed",
+		Function = function() end,
+	})
+    AntiDeathArray = AntiDeath.CreateDropdown({
+		Name = "ArrayList Mode",
+		List = {
+			"Mode",
+            "Notify",
+            "Health",
+            "Boost"
+		},
+		HoverText = "AntiDeath's Mode in the ArrayList",
+		Function = function() end,
+	})
+	AntiDeathHealth = AntiDeath.CreateSlider({
+		Name = "Dangerous Health",
+		Min = 1,
+		Max = 90,
+		HoverText = "Health at which AntiDeath will perform its actions",
+		Function = function() end,
+		Default = 30
+	})
+	AntiDeathBoost = AntiDeath.CreateSlider({
+		Name = "Boost",
+		Min = 1,
+		Max = 700,
+		HoverText = "Velocity Boost Value",
+		Function = function() end,
+		Default = 600
+	})
+	AntiDeathDuration = AntiDeath.CreateSlider({
+		Name = "Duration",
+		Min = 1,
+		Max = 20,
+		HoverText = "Notifcation's Duration",
+		Function = function() end,
+		Default = 10
+	})
+    AntiDeathArray2 = AntiDeath.CreateToggle({
+		Name = "ArrayList Show",
+		Default = true,
+		HoverText = "Shows AntiDeath's Mode in the ArrayList",
+		Function = function() end,
+	})
+    AntiDeathDisable = AntiDeath.CreateToggle({
+		Name = "Disable Modules",
+		Default = true,
+		HoverText = "Disables vape modules when AntiDeath is performing its actions\nExample: Fly, InfFly, etc.",
+		Function = function() end,
+	})
+	AntiDeathNotification = AntiDeath.CreateToggle({
+		Name = "Notification",
+		Default = true,
+		HoverText = "Notifies you when certain actions happen",
+		Function = function() end,
+	})
+    AntiDeathNotify1 = AntiDeath.CreateToggle({
+		Name = "Notify INF 1",
+		Default = true,
+		HoverText = "Notifies you when InfiniteFly has been enabled",
+		Function = function() end,
+	})
+    AntiDeathNotify2 = AntiDeath.CreateToggle({
+		Name = "Notify INF 2",
+		Default = true,
+		HoverText = "Notifies you when InfiniteFly is already enabled",
+		Function = function() end,
+	})
+    AntiDeathNotify3 = AntiDeath.CreateToggle({
+		Name = "Notify Boost",
+		Default = true,
+		HoverText = "Notifies you when you got boosted",
+		Function = function() end,
+	})
+    AntiDeathNotify4 = AntiDeath.CreateToggle({
+		Name = "Notify Settings",
+		Default = true,
+		HoverText = "Notifies you when you have to enable\nAntiDeath in settings",
+		Function = function() end,
+	})
+end)
+runFunction(function()
+		local InstaKill = {Enabled = false}
+		InstaKill = GuiLibrary.ObjectsThatCanBeSaved.BlatantWindow.Api.CreateOptionsButton({
+			Name = "InstantKill",
+			Function = function(callback)
+				if callback then 
+					task.spawn(function()
+						repeat task.wait() 
+							if vapeTargetInfo.Targets.Killaura then
+							bedwars.ClientHandler:Get("RequestGauntletsChargedAttack"):SendToServer({
+								region = Region3.new(Vector3.new(math.huge, math.huge, math.huge), Vector3.new(math.huge, math.huge, math.huge)), 
+								blockDestroyTime = 0.1,
+								unitLookVector = lplr.Character and lplr.Character.PrimaryPart and lplr.Character.HumanoidRootPart.CFrame.LookVector or Vector3.new(0, 0, 0)
+							})
+						end
+						until not InstaKill.Enabled
+					end)
+				end
+			end
+		})
+	end)																																																																																				
