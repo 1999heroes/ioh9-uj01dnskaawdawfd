@@ -30,199 +30,146 @@ game.Lighting.Sky.SkyboxLf = "rbxassetid://14850587097"
 game.Lighting.Sky.SkyboxRt = "rbxassetid://14850594665"
 game.Lighting.Sky.SkyboxUp = "rbxassetid://14850594895"
 
+-- Gui to Lua
+-- Version: 3.2
 
-local bloomEffect = Instance.new("BloomEffect")
+-- Instances:
 
-bloomEffect.Intensity = 0.8
-bloomEffect.Size = 10
-bloomEffect.Threshold = 0.5
-
-bloomEffect.Parent = game.Lighting
-
-
-local loadin = Instance.new("ScreenGui")
-local Main = Instance.new("Frame")
-local TextLabel = Instance.new("TextLabel")
-local WelcomeUsername = Instance.new("TextLabel")
-local PlayButton = Instance.new("TextButton")
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local MastaV4 = Instance.new("TextLabel")
+local MastaV4_2 = Instance.new("TextLabel")
 local UICorner = Instance.new("UICorner")
-local UIGradient = Instance.new("UIGradient")
-local CreditButton = Instance.new("TextButton")
-local UICorner_2 = Instance.new("UICorner")
-local UIGradient_2 = Instance.new("UIGradient")
-local Credit = Instance.new("Frame")
-local TextLabel_2 = Instance.new("TextLabel")
-local TextLabel_3 = Instance.new("TextLabel")
-local TextLabel_4 = Instance.new("TextLabel")
-local TextLabel_5 = Instance.new("TextLabel")
-local CreditCloseButton = Instance.new("TextButton")
-local UICorner_3 = Instance.new("UICorner")
-local UIGradient_3 = Instance.new("UIGradient")
-local animegirl = Instance.new("ScreenGui")
-local ImageLabel = Instance.new("ImageLabel")
+local DropShadow = Instance.new("ImageLabel")
+local discord = Instance.new("ImageButton")
+local countdown = Instance.new("TextLabel")
+local MastaV4_3 = Instance.new("TextLabel")
+local MastaV4_4 = Instance.new("TextLabel")
+local MastaV4_5 = Instance.new("TextLabel")
 
-loadin.Name = "loadin"
-loadin.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-loadin.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+--Properties:
 
-Main.Name = "Main"
-Main.Parent = loadin
-Main.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Main.BackgroundTransparency = 1.000
-Main.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Main.BorderSizePixel = 0
-Main.Position = UDim2.new(0.288840264, 0, 0.296470582, 0)
-Main.Size = UDim2.new(0, 100, 0, 100)
-Main.Visible = false
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-TextLabel.Parent = Main
-TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel.BackgroundTransparency = 1.000
-TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
-TextLabel.BorderSizePixel = 0
-TextLabel.Position = UDim2.new(0.0900000036, 0, -1, 0)
-TextLabel.Size = UDim2.new(0, 561, 0, 196)
-TextLabel.Font = Enum.Font.FredokaOne
-TextLabel.Text = "Masta V4"
-TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
-TextLabel.TextSize = 100.000
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(134, 134, 134)
+Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(0.279358119, 0, 0.301176459, 0)
+Frame.Size = UDim2.new(0, 605, 0, 338)
 
-WelcomeUsername.Name = "WelcomeUsername"
-WelcomeUsername.Parent = Main
-WelcomeUsername.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-WelcomeUsername.BackgroundTransparency = 1.000
-WelcomeUsername.BorderColor3 = Color3.fromRGB(0, 0, 0)
-WelcomeUsername.BorderSizePixel = 0
-WelcomeUsername.Position = UDim2.new(0.0900000036, 0, -0.200000003, 0)
-WelcomeUsername.Size = UDim2.new(0, 561, 0, 196)
-WelcomeUsername.Font = Enum.Font.FredokaOne
-WelcomeUsername.Text = "Masta V4"
-WelcomeUsername.TextColor3 = Color3.fromRGB(0, 0, 0)
-WelcomeUsername.TextSize = 77.000
+MastaV4.Name = "Masta V4"
+MastaV4.Parent = Frame
+MastaV4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+MastaV4.BackgroundTransparency = 1.000
+MastaV4.BorderColor3 = Color3.fromRGB(0, 0, 0)
+MastaV4.BorderSizePixel = 0
+MastaV4.Position = UDim2.new(-0.214876026, 0, 0, 0)
+MastaV4.Size = UDim2.new(0, 605, 0, 71)
+MastaV4.Font = Enum.Font.FredokaOne
+MastaV4.Text = "Masta V4"
+MastaV4.TextColor3 = Color3.fromRGB(0, 0, 0)
+MastaV4.TextSize = 79.000
 
-PlayButton.Name = "PlayButton"
-PlayButton.Parent = Main
-PlayButton.BackgroundColor3 = Color3.fromRGB(34, 255, 0)
-PlayButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
-PlayButton.BorderSizePixel = 0
-PlayButton.Position = UDim2.new(2.00999999, 0, 1.48000002, 0)
-PlayButton.Size = UDim2.new(0, 200, 0, 50)
-PlayButton.Font = Enum.Font.FredokaOne
-PlayButton.Text = "Play"
-PlayButton.TextColor3 = Color3.fromRGB(0, 0, 0)
-PlayButton.TextSize = 49.000
+MastaV4_2.Name = "Masta V4"
+MastaV4_2.Parent = Frame
+MastaV4_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+MastaV4_2.BackgroundTransparency = 1.000
+MastaV4_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+MastaV4_2.BorderSizePixel = 0
+MastaV4_2.Position = UDim2.new(0.433057845, 0, -0.0266272184, 0)
+MastaV4_2.Rotation = 32.000
+MastaV4_2.Size = UDim2.new(0, 605, 0, 71)
+MastaV4_2.Font = Enum.Font.FredokaOne
+MastaV4_2.Text = "v1.2"
+MastaV4_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+MastaV4_2.TextSize = 37.000
 
-UICorner.Parent = PlayButton
+UICorner.CornerRadius = UDim.new(0, 20)
+UICorner.Parent = Frame
 
-UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(126, 126, 126)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 255, 255))}
-UIGradient.Parent = PlayButton
+DropShadow.Name = "DropShadow"
+DropShadow.Parent = Frame
+DropShadow.AnchorPoint = Vector2.new(0.5, 0.5)
+DropShadow.BackgroundTransparency = 1.000
+DropShadow.BorderSizePixel = 0
+DropShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
+DropShadow.Size = UDim2.new(1, 47, 1, 47)
+DropShadow.ZIndex = 0
+DropShadow.Image = "rbxassetid://6014261993"
+DropShadow.ImageColor3 = Color3.fromRGB(0, 0, 0)
+DropShadow.ImageTransparency = 0.630
+DropShadow.ScaleType = Enum.ScaleType.Slice
+DropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
 
-CreditButton.Name = "CreditButton"
-CreditButton.Parent = Main
-CreditButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-CreditButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
-CreditButton.BorderSizePixel = 0
-CreditButton.Position = UDim2.new(2.19000006, 0, 2.05999994, 0)
-CreditButton.Size = UDim2.new(0, 163, 0, 40)
-CreditButton.Font = Enum.Font.FredokaOne
-CreditButton.Text = "Credits"
-CreditButton.TextColor3 = Color3.fromRGB(0, 0, 0)
-CreditButton.TextSize = 49.000
+discord.Name = "discord"
+discord.Parent = Frame
+discord.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+discord.BackgroundTransparency = 1.000
+discord.BorderColor3 = Color3.fromRGB(0, 0, 0)
+discord.BorderSizePixel = 0
+discord.Position = UDim2.new(0.834710717, 0, 0.686390519, 0)
+discord.Rotation = 13.000
+discord.Size = UDim2.new(0, 100, 0, 100)
+discord.Image = "rbxassetid://14875795557"
 
-UICorner_2.Parent = CreditButton
+countdown.Name = "countdown"
+countdown.Parent = Frame
+countdown.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+countdown.BackgroundTransparency = 1.000
+countdown.BorderColor3 = Color3.fromRGB(0, 0, 0)
+countdown.BorderSizePixel = 0
+countdown.Position = UDim2.new(0, 0, 0.183431953, 0)
+countdown.Size = UDim2.new(0, 605, 0, 71)
+countdown.Font = Enum.Font.FredokaOne
+countdown.Text = "This GUI will close in 9 seconds."
+countdown.TextColor3 = Color3.fromRGB(0, 0, 0)
+countdown.TextSize = 35.000
 
-UIGradient_2.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(126, 126, 126)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 255, 255))}
-UIGradient_2.Parent = CreditButton
+MastaV4_3.Name = "Masta V4"
+MastaV4_3.Parent = Frame
+MastaV4_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+MastaV4_3.BackgroundTransparency = 1.000
+MastaV4_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
+MastaV4_3.BorderSizePixel = 0
+MastaV4_3.Position = UDim2.new(0, 0, 0.32840237, 0)
+MastaV4_3.Size = UDim2.new(0, 605, 0, 71)
+MastaV4_3.Font = Enum.Font.FredokaOne
+MastaV4_3.Text = "Updates"
+MastaV4_3.TextColor3 = Color3.fromRGB(0, 0, 0)
+MastaV4_3.TextSize = 79.000
 
-Credit.Name = "Credit"
-Credit.Parent = loadin
-Credit.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Credit.BackgroundTransparency = 1.000
-Credit.BorderColor3 = Color3.fromRGB(0, 0, 0)
-Credit.BorderSizePixel = 0
-Credit.Size = UDim2.new(0, 100, 0, 100)
-Credit.Visible = false
+MastaV4_4.Name = "Masta V4"
+MastaV4_4.Parent = Frame
+MastaV4_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+MastaV4_4.BackgroundTransparency = 1.000
+MastaV4_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
+MastaV4_4.BorderSizePixel = 0
+MastaV4_4.Position = UDim2.new(0, 0, 0.502958596, 0)
+MastaV4_4.Size = UDim2.new(0, 605, 0, 71)
+MastaV4_4.Font = Enum.Font.FredokaOne
+MastaV4_4.Text = "Instakill, AntiDeath, Crasher"
+MastaV4_4.TextColor3 = Color3.fromRGB(0, 0, 0)
+MastaV4_4.TextSize = 42.000
 
-TextLabel_2.Parent = Credit
-TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel_2.BackgroundTransparency = 1.000
-TextLabel_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-TextLabel_2.BorderSizePixel = 0
-TextLabel_2.Position = UDim2.new(5.44000006, 0, 2.58999991, 0)
-TextLabel_2.Size = UDim2.new(0, 561, 0, 196)
-TextLabel_2.Font = Enum.Font.FredokaOne
-TextLabel_2.Text = "Coder"
-TextLabel_2.TextColor3 = Color3.fromRGB(0, 0, 0)
-TextLabel_2.TextSize = 77.000
+MastaV4_5.Name = "Masta V4"
+MastaV4_5.Parent = Frame
+MastaV4_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+MastaV4_5.BackgroundTransparency = 1.000
+MastaV4_5.BorderColor3 = Color3.fromRGB(0, 0, 0)
+MastaV4_5.BorderSizePixel = 0
+MastaV4_5.Position = UDim2.new(0.0148760332, 0, 0.772189379, 0)
+MastaV4_5.Size = UDim2.new(0, 605, 0, 71)
+MastaV4_5.Font = Enum.Font.FredokaOne
+MastaV4_5.Text = "discord.gg/mastaskid"
+MastaV4_5.TextColor3 = Color3.fromRGB(0, 0, 0)
+MastaV4_5.TextSize = 45.000
 
-TextLabel_3.Parent = Credit
-TextLabel_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel_3.BackgroundTransparency = 1.000
-TextLabel_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
-TextLabel_3.BorderSizePixel = 0
-TextLabel_3.Position = UDim2.new(5.44000006, 0, 3.26999998, 0)
-TextLabel_3.Size = UDim2.new(0, 561, 0, 196)
-TextLabel_3.Font = Enum.Font.FredokaOne
-TextLabel_3.Text = "vibes"
-TextLabel_3.TextColor3 = Color3.fromRGB(0, 0, 0)
-TextLabel_3.TextSize = 59.000
+-- Scripts:
 
-TextLabel_4.Parent = Credit
-TextLabel_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel_4.BackgroundTransparency = 1.000
-TextLabel_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
-TextLabel_4.BorderSizePixel = 0
-TextLabel_4.Position = UDim2.new(5.44000006, 0, 3.79999995, 0)
-TextLabel_4.Size = UDim2.new(0, 561, 0, 196)
-TextLabel_4.Font = Enum.Font.FredokaOne
-TextLabel_4.Text = "UI"
-TextLabel_4.TextColor3 = Color3.fromRGB(0, 0, 0)
-TextLabel_4.TextSize = 77.000
-
-TextLabel_5.Parent = Credit
-TextLabel_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel_5.BackgroundTransparency = 1.000
-TextLabel_5.BorderColor3 = Color3.fromRGB(0, 0, 0)
-TextLabel_5.BorderSizePixel = 0
-TextLabel_5.Position = UDim2.new(5.44000006, 0, 4.38999987, 0)
-TextLabel_5.Size = UDim2.new(0, 561, 0, 196)
-TextLabel_5.Font = Enum.Font.FredokaOne
-TextLabel_5.Text = "Mastaskid"
-TextLabel_5.TextColor3 = Color3.fromRGB(0, 0, 0)
-TextLabel_5.TextSize = 59.000
-
-CreditCloseButton.Name = "CreditCloseButton"
-CreditCloseButton.Parent = Credit
-CreditCloseButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-CreditCloseButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
-CreditCloseButton.BorderSizePixel = 0
-CreditCloseButton.Position = UDim2.new(7.42999983, 0, 6.3499999, 0)
-CreditCloseButton.Size = UDim2.new(0, 163, 0, 40)
-CreditCloseButton.Font = Enum.Font.FredokaOne
-CreditCloseButton.Text = "Go Back"
-CreditCloseButton.TextColor3 = Color3.fromRGB(0, 0, 0)
-CreditCloseButton.TextSize = 49.000
-
-UICorner_3.Parent = CreditCloseButton
-
-UIGradient_3.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(126, 126, 126)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 255, 255))}
-UIGradient_3.Parent = CreditCloseButton
-
-animegirl.Name = "animegirl"
-animegirl.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-animegirl.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
-ImageLabel.Parent = animegirl
-ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-ImageLabel.BackgroundTransparency = 1.000
-ImageLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
-ImageLabel.BorderSizePixel = 0
-ImageLabel.Position = UDim2.new(0.567821085, 0, 0, 0)
-ImageLabel.Size = UDim2.new(0, 782, 0, 850)
-ImageLabel.Image = "rbxassetid://14876212265"
-
-local function QHZMWN_fake_script() -- TextLabel.LocalScript 
-	local script = Instance.new('LocalScript', TextLabel)
+local function ARBYFI_fake_script() -- MastaV4.LocalScript 
+	local script = Instance.new('LocalScript', MastaV4)
 
 	while true do
 		script.Parent.TextColor3 = Color3.new(255/255,0/255,0/255)
@@ -253,53 +200,73 @@ local function QHZMWN_fake_script() -- TextLabel.LocalScript
 	end
 	
 end
-coroutine.wrap(QHZMWN_fake_script)()
-local function TYRM_fake_script() -- WelcomeUsername.LocalScript 
-	local script = Instance.new('LocalScript', WelcomeUsername)
+coroutine.wrap(ARBYFI_fake_script)()
+local function LUQS_fake_script() -- MastaV4_2.LocalScript 
+	local script = Instance.new('LocalScript', MastaV4_2)
 
-	local player = game.Players.LocalPlayer
-	
-	script.Parent.Text = player.Name
+	while true do
+		script.Parent.TextColor3 = Color3.new(255/255,0/255,0/255)
+		for i = 0,255,10 do
+			wait()
+			script.Parent.TextColor3 = Color3.new(255/255,i/255,0/255)
+		end
+		for i = 255,0,-10 do
+			wait()
+			script.Parent.TextColor3 = Color3.new(i/255,255/255,0/255)
+		end
+		for i = 0,255,10 do
+			wait()
+			script.Parent.TextColor3 = Color3.new(0/255,255/255,i/255)
+		end
+		for i = 255,0,-10 do
+			wait()
+			script.Parent.TextColor3 = Color3.new(0/255,i/255,255/255)
+		end
+		for i = 0,255,10 do
+			wait()
+			script.Parent.TextColor3 = Color3.new(i/255,0/255,255/255)
+		end
+		for i = 255,0,-10 do
+			wait()
+			script.Parent.TextColor3 = Color3.new(255/255,0/255,i/255)
+		end
+	end
 end
-coroutine.wrap(TYRM_fake_script)()
-local function YEWFC_fake_script() -- Main.LocalScript 
-	local script = Instance.new('LocalScript', Main)
+coroutine.wrap(LUQS_fake_script)()
+local function DNLPMD_fake_script() -- Frame.LocalScript 
+	local script = Instance.new('LocalScript', Frame)
 
-	local main = script.Parent.Parent:WaitForChild("Main")
-	local credit = script.Parent.Parent:WaitForChild("Credit")
+	function zigzag(X) return math.acos(math.cos(X*math.pi))/math.pi end
 	
-	local playbutton = script.Parent:WaitForChild("PlayButton")
-	local creditbutton = script.Parent:WaitForChild("CreditButton")
-	local creditclosebutton = script.Parent.Parent.Credit:WaitForChild("CreditCloseButton")
-	local animegirl = script.Parent.Parent.Parent:WaitForChild("animegirl")
+	counter = 0
 	
-	main.Visible = true
-	credit.Visible = false
+	while wait(0.1)do
+		script.Parent.BackgroundColor3 = Color3.fromHSV(zigzag(counter),1,1)
 	
-	animegirl.Enabled = true
+		counter = counter + 0.01
+	end
 	
-	playbutton.MouseButton1Click:Connect(function()
-		main.Visible = false
-		credit.Visible = false
-		
-		animegirl.Enabled = false
-	end)
-	
-	creditbutton.MouseButton1Click:Connect(function()
-		main.Visible = false
-		credit.Visible = true
-		animegirl.Enabled = true
-	end)
-	
-	creditclosebutton.MouseButton1Click:Connect(function()
-		credit.Visible = false
-		main.Visible = true
-		animegirl.Enabled = true
-	end)
 end
-coroutine.wrap(YEWFC_fake_script)()
-local function JJBWPZ_fake_script() -- TextLabel_2.LocalScript 
-	local script = Instance.new('LocalScript', TextLabel_2)
+coroutine.wrap(DNLPMD_fake_script)()
+local function GUGNIA_fake_script() -- Frame.ktoopenclose 
+	local script = Instance.new('LocalScript', Frame)
+
+	-- Reference to your GUI
+	local gui = script.Parent  -- Replace this with the actual reference to your GUI
+	
+	-- Show the GUI
+	gui.Visible = true
+	
+	-- Wait for 9 seconds
+	wait(9)
+	
+	-- Hide the GUI
+	gui.Visible = false
+	
+end
+coroutine.wrap(GUGNIA_fake_script)()
+local function YKLSVDY_fake_script() -- MastaV4_3.LocalScript 
+	local script = Instance.new('LocalScript', MastaV4_3)
 
 	while true do
 		script.Parent.TextColor3 = Color3.new(255/255,0/255,0/255)
@@ -330,9 +297,9 @@ local function JJBWPZ_fake_script() -- TextLabel_2.LocalScript
 	end
 	
 end
-coroutine.wrap(JJBWPZ_fake_script)()
-local function DYPI_fake_script() -- TextLabel_4.LocalScript 
-	local script = Instance.new('LocalScript', TextLabel_4)
+coroutine.wrap(YKLSVDY_fake_script)()
+local function VHGJU_fake_script() -- MastaV4_4.LocalScript 
+	local script = Instance.new('LocalScript', MastaV4_4)
 
 	while true do
 		script.Parent.TextColor3 = Color3.new(255/255,0/255,0/255)
@@ -363,18 +330,41 @@ local function DYPI_fake_script() -- TextLabel_4.LocalScript
 	end
 	
 end
-coroutine.wrap(DYPI_fake_script)()
-local function GSQBMOB_fake_script() -- animegirl.LocalScript 
-	local script = Instance.new('LocalScript', animegirl)
+coroutine.wrap(VHGJU_fake_script)()
+local function WMKJV_fake_script() -- MastaV4_5.LocalScript 
+	local script = Instance.new('LocalScript', MastaV4_5)
 
-	local MapGui = script.Parent.Parent
-	local Button = script.Parent
-	Button.MouseButton1Down:Connect(function()
-		MapGui.Enabled = false
-	end)
+	while true do
+		script.Parent.TextColor3 = Color3.new(255/255,0/255,0/255)
+		for i = 0,255,10 do
+			wait()
+			script.Parent.TextColor3 = Color3.new(255/255,i/255,0/255)
+		end
+		for i = 255,0,-10 do
+			wait()
+			script.Parent.TextColor3 = Color3.new(i/255,255/255,0/255)
+		end
+		for i = 0,255,10 do
+			wait()
+			script.Parent.TextColor3 = Color3.new(0/255,255/255,i/255)
+		end
+		for i = 255,0,-10 do
+			wait()
+			script.Parent.TextColor3 = Color3.new(0/255,i/255,255/255)
+		end
+		for i = 0,255,10 do
+			wait()
+			script.Parent.TextColor3 = Color3.new(i/255,0/255,255/255)
+		end
+		for i = 255,0,-10 do
+			wait()
+			script.Parent.TextColor3 = Color3.new(255/255,0/255,i/255)
+		end
+	end
+	
 end
-coroutine.wrap(GSQBMOB_fake_script)()
-																									
+coroutine.wrap(WMKJV_fake_script)()
+
 local bedwars = {}
 local bedwarsStore = {
 	attackReach = 0,
