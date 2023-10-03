@@ -23,12 +23,12 @@ local vapeEvents = setmetatable({}, {
 local vapeTargetInfo = shared.VapeTargetInfo
 local vapeInjected = true
 
-game.Lighting.Sky.SkyboxBk = "rbxassetid://14811060476"
-game.Lighting.Sky.SkyboxDn = "rbxassetid://14850572364"
-game.Lighting.Sky.SkyboxFt = "rbxassetid://14850572616"
-game.Lighting.Sky.SkyboxLf = "rbxassetid://14850587097"
-game.Lighting.Sky.SkyboxRt = "rbxassetid://14850594665"
-game.Lighting.Sky.SkyboxUp = "rbxassetid://14850594895"
+game.Lighting.Sky.SkyboxBk = "http://www.roblox.com/asset/?id=166509999"
+game.Lighting.Sky.SkyboxDn = "http://www.roblox.com/asset/?id=166510057"
+game.Lighting.Sky.SkyboxFt = "http://www.roblox.com/asset/?id=166510116"
+game.Lighting.Sky.SkyboxLf = "http://www.roblox.com/asset/?id=166510092"
+game.Lighting.Sky.SkyboxRt = "http://www.roblox.com/asset/?id=166510131"
+game.Lighting.Sky.SkyboxUp = "http://www.roblox.com/asset/?id=166510114"
 
 -- Gui to Lua
 -- Version: 3.2
@@ -3917,8 +3917,8 @@ runFunction(function()
 			{CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(0), math.rad(-0), math.rad(-0)), Time = 0.1}
 		},
 		Exhibition = {
-			{CFrame = CFrame.new(0.69, -0.7, 0.6) * CFrame.Angles(math.rad(-30), math.rad(50), math.rad(-90)), Time = 0.1},
-			{CFrame = CFrame.new(0.7, -0.71, 0.59) * CFrame.Angles(math.rad(-84), math.rad(50), math.rad(-38)), Time = 0.2}
+			{CFrame = CFrame.new(0.1, -0.7, 2) * CFrame.Angles(math.rad(-2), math.rad(65), math.rad(-90)), Time = 0.6},
+			{CFrame = CFrame.new(0.3, -0.66, 0.22) * CFrame.Angles(math.rad(-32), math.rad(67), math.rad(-22)), Time = 0.7}
 		},
 		["Exhibition Old"] = {
 			{CFrame = CFrame.new(0.69, -0.7, 0.6) * CFrame.Angles(math.rad(-30), math.rad(50), math.rad(-90)), Time = 0.15},
