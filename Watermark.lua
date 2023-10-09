@@ -19,7 +19,7 @@ ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 ImageLabel.BackgroundTransparency = 1.000
 ImageLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
 ImageLabel.BorderSizePixel = 0
-ImageLabel.Position = UDim2.new(-0.670000017, 0, 7, 0)
+ImageLabel.Position = UDim2.new(0.12, 0, 5.69, 0)
 ImageLabel.Size = UDim2.new(0, 552, 0, 262)
 ImageLabel.Image = "rbxassetid://14811035027"
 
