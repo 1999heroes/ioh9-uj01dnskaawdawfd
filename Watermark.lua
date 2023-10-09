@@ -29,9 +29,9 @@ local function blackballs()
 	local image = script.Parent
 	
 	while wait() do
-		image.Image = "rbxassetid://14811035027"
+		image.Image = "rbxassetid://15021218759"
 		wait(2)
-		image.Image = "rbxassetid://14811060476"
+		image.Image = "rbxassetid://15021231907"
 		wait(2)
 	end
 end
